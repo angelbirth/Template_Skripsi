@@ -3,14 +3,146 @@
 %-----------------------------------------------------------------------------%
 
 %
-\vspace{4.5pt}
+\vspace{12pt}
 
-\section{Tinjauan Studi}
 
-\section{Landasan Teori}
+\section{Kriptografi}
+Kriptografi adalah ilmu yang melindungi data dan komunikasi. Objektif utama
+kriptografi adalah untuk memungkinkan dua pihak berkomunikasi lewat saluran
+tidak aman sedemikian rupa sehingga pihak ketiga tidak dapat memahami apa yang
+sedang dibicarakan.\par
+Salah satu komponen utamanya melibatkan pertukaran pesan atau informasi antara
+dua pihak dengan mengubah wujud pesan/data dengan berbagai cara yang bertujuan
+untuk membuat pihak lain kesulitan "menguping" pembicaraan. Aspek lainnya
+termasuk otentikasi -- proses meyakinkan penerima pesan bahwa pesan benar-benar
+berasal dari sumber yang asli (bukan dari pengirim lain yang menyamar) -- dan
+integritas -- bahwa pesan yang sampai ke penerima adalah benar pesan yang
+dikirim oleh pengirim tanpa mengalami perubahan sedikitpun.
+\section{Matriks}
+Matriks merupakan struktur data yang sangat umum dan natural dalam komputasi,
+terdiri atas kumpulan angka yang membentuk persegi panjang. Matriks memiliki
+beberapa karakteristik penting, yaitu:
+\begin{enumerate}[label=\alph*.]
+\item Dimensi\\Sebuah matriks dengan $n$ baris dan $m$ kolom disebut sebagai matriks $n\times m$.
+Dua bilangan inilah yang disebut sebagai dimensi sebuah matriks. Jika $n = m$, maka
+matriks dikatakan sebagai matriks persegi.
+\item Elemen\\Setiap angka dalam sebuah matriks merupakan sebuah elemen. Sebuah
+elemen $a_{ij}$ dari matriks $A$ terletak pada baris $i$ dan kolom $j$.
+\item Vektor\\Dalam hubungannya dengan matriks, sebuah vektor $v$ adalah sebuah
+matriks yang berdimensi $1\times n$ atau $n\times 1$.
+\[
+\begin{bmatrix}
+  a_{11} & a_{12} & a_{13} & \cdots & a_{1m} \\
+  a_{21} & a_{22} & a_{23} & \cdots & a_{2m} \\
+  a_{31} & a_{32} & a_{33} & \cdots & a_{3m} \\
+  \vdots  & \vdots  & \vdots & \ddots & \vdots  \\
+  a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nm} 
+ \end{bmatrix}
+ \]
+\end{enumerate}
 
-\section{Pengembangan Sistem}
+\subsection{Operasi Matriks}
+Layaknya angka, matriks pun memiliki beberapa operasi aritmatika. Beberapa
+operasi matriks sangat trivial, sisanya memerlukan penge-tahuan khusus. Dalam
+penelitian ini, penulis akan menggunakan beberapa operasi matriks dasar, yaitu:
 
-\section{Perangkat Lunak Pendukung}
+\begin{enumerate}[label=\alph*.]
 
+\item Penjumlahan dan pengurangan matriks\\Penjumlahan dan pengurangan matriks
+merupakan salah satu operasi trivial. Operasi penjumlahan dan pengurangan
+matriks dilakukan elemen per elemen. Syarat penjumlahan dan pengurangan matriks
+adalah kedua matriks harus memiliki dimensi yang sama.
+\begin{equation} \label{penjumlahan_matriks}
+[a_{ij}] \pm [b_{ij}] = [a_{ij}\pm b_{ij}] \text{, untuk setiap }  i \text{ dan } j
+\end{equation}
+
+\item Perkalian skalar\\Perkalian skalar juga merupakan operasi trivial. Jika k adalah sebuah
+konstanta, maka kA adalah perkalian skalar matriks A dengan k,
+didefinisikan sebagai matriks dengan elemen-elemen a ij yang
+dikalikan dengan k.
+\begin{equation}
+k[a_{ij}] = [ka_{ij}] \text{, untuk setiap } i \text{ dan }j
+\end{equation} 
+
+\item Perkalian matriks\\Jika A adalah matriks $n \times m$ dan B adalah matriks $m \times r$ maka
+perkalian matrix $C = A \times B$ didefinisikan sebagai
+\begin{equation}
+	c_{ij}=\sum_{k=1}^m{a_{ik}b_{kj}}\text{ , } \left(
+	\begin{array}{l}
+		i=1, 2, 3, \dotsc, n\\
+		j=1, 2, 3, \dotsc, m
+	\end{array}\right)
+\end{equation} 
+Matriks $C$ hasil perkalian akan berdimensi $n\times r$.
+
+\subsection{Matriks identitas}
+Untuk sebuah bilangan bulat positif $n$, matriks identitas $n \times{n}$,
+dinotasikan sebagai $I_n$ atau $I$ saja, adalah matriks 
+\begin{equation}
+	\left[\delta_{ij}\right]=
+	\begin{cases}
+		1& \text{jika $i=j$}\\
+		0& \text{jika $i \neq j$}
+	\end{cases}
+\end{equation}
+Penamaan ini didasarkan pada sifatnya yang mirip dengan angka 1
+sebagai identitas perkalian pada bilangan real: perkalian sebarang
+matriks persegi $A$ dengan $I$ menghasilkan $A$.
+
+\subsection{Invers matriks}
+Sebuah matriks persegi A dinyatakan \textit{invertible} (memiliki invers) jika dan
+hanya jika ada matriks lain $A^{-1}$ yang memenuhi persamaan berikut:
+\begin{equation}
+	AA^{-1}=A^{-1}A=I
+\end{equation}
+\end{enumerate}
+
+\section{Operasi bilangan bulat modular}
+Bilangan mod(ulus) $m$, $\mathbb{Z}_m$ , adalah himpunan $\lbrace x|x = 0, 1, 2, 3, \dotsc , m - 2, m -
+1 \rbrace $. Operasi yang berlaku di domain bilangan bulat berlaku juga di bilangan bulat
+mod m. Secara umum, operasi modulus m didefinisikan secara rekursif sebagai
+berikut:
+\begin{equation}
+c \bmod{m}= \begin{cases}
+	(m-c)\bmod{m}	&\text{jika }c<0\\
+	c				&\text{jika }0\leq c<m\\
+	(c-m)\bmod{m}	&\text{jika }c\geq m
+\end{cases}
+\end{equation}
+
+\subsection{Penjumlahan dan pengurangan}
+Penjumlahan dan pengurangan bilangan bulat modulus $m$ didefinisikan sebagai berikut:
+\begin{equation}
+\begin{array}{lrcl}
+	\text{jika}	& a\pm{b}			&=&c\\
+	\text{maka}	& (a\pm b)\bmod m	&=&c\bmod m\\
+	\;			&\;					&=&(a\bmod m)\pm (b\bmod m)
+\end{array}
+\end{equation}
+
+\subsection{Perkalian}\
+\begin{equation}
+	\begin{array}{lrcl}
+		\text{jika}	& a\times b			&=&c\\
+		\text{maka}	& (a\times b)\bmod m&=&c\bmod m\\
+		\;			&\;					&=&(a\bmod m)\times (b\bmod m)\\
+	\end{array}
+\end{equation}
+
+\subsection{Pembagian (sebagai invers perkalian)}
+$a\div b\bmod m=c$ jika dan hanya jika ada $c\in \mathbb{Z}_m$ yang memenuhi persamaan 
+$(b\times c)\bmod m=a$.
+
+\subsection{\textit{Multiplicative inverse}}
+Invers dari $b$, $b^{-1}$ adalah sebuah bilangan $c\bmod m$ yang memenuhi 
+persamaan $(b\times c)\bmod m=1$.\par
+Sebuah bilangan $c\bmod m$ memiliki inverse jika $c$ relatif prima (\textit{coprime})
+terhadap $m$, yaitu $\operatorname{gcd}(c,m)=1$. Oleh karena itu, penting untuk memilih 
+modulo yang benar sehingga sebagian besar $c\in\mathbb{Z}_m$ memiliki invers.
+
+\section{Matriks Modular}
+Matriks modular adalah matriks dengan elemen-elemen bilangan modulus.
+Matriks modular memiliki aturan-aturan yang hampir sama dengan matriks real
+tetapi pada domain yang berbeda, yaitu bilangan modulus. Operasi-operasinya
+pun didasarkan pada operasi modulus.
 \newpage

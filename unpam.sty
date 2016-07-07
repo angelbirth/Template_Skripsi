@@ -29,6 +29,7 @@
 
 % Untuk mengatur spacing antara paragraf
 \usepackage{parskip}
+\setlength\parskip{6pt}
 
 % Membuat indent
 \usepackage{indentfirst}
@@ -55,7 +56,7 @@
 
 % Merubah numbering chapter dan section untuk judul setiap bab menggunakan romawi dan judul anak bab menggunakan arabic
 \renewcommand\thechapter{\Roman{chapter}}
-\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}\hspace{0,3cm}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}\hspace{-0,35cm}}
 
@@ -82,9 +83,9 @@
 \titlespacing*{\section}
 {0pt}{0pt}{-0.05cm}
 \titlespacing*{\subsection}
-{0pt}{0pt}{-0.05cm}
+{0.75cm}{0pt}{-0.05cm}
 \titlespacing*{\subsubsection}
-{0pt}{0pt}{-0.05cm}
+{1.5cm}{0pt}{-0.05cm}
 	
 % Digunakan untuk mengatur caption dalam dokumen.
 \usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=up]{caption}
@@ -105,7 +106,7 @@
 \hbadness=10000
 
 % Untuk mengatur setting indent
-\setlength\parindent{1.30cm}
+\setlength\parindent{0.5cm}
 
 % Untuk memasukkan table
 \usepackage{tabularx}
@@ -117,7 +118,7 @@
 \usepackage{geometry}
 \geometry{
   left=4cm,            % <-- you want to adjust this
-  top=3cm,
+  top=4cm,
   right=3cm,
   bottom=3cm,
   headheight=3cm,       % <-- and this
@@ -125,11 +126,11 @@
 }
 
 % Teks testing
-\usepackage{blindtext}
+%\usepackage{blindtext}
 \usepackage{lipsum}
 
 % Untuk mengatur subscript supscript
-\usepackage{fixltx2e}
+%\usepackage{fixltx2e}
 
 % Untuk mengatur wrap picture
 \usepackage{wrapfig}

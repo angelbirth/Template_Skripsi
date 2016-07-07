@@ -3,79 +3,35 @@
 %-----------------------------------------------------------------------------%
 
 %
-\vspace{4.5pt}
+\vspace{12pt}
 
-\section{Analisa Sistem}
-
-\subsection{Analisa Sistem Saat Ini}
-Analisa sistem pendukung keputusan dalam penentuan penjurusan dibuat oleh peneliti dalam bentuk use case diagram yang mewakili secara sederhana dan bisa dijadikan sebagai bahan dalam evaluasi sistem yang berjalan, sehingga sistem dapat terlihat tanpa harus mengetahui secara detail prosedur yang berjalan.
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=10cm]{images/UseCaseDiagramSistemSaatIni}
-	\caption{Use Case Diagram Analisa Sistem Saat Ini}
-\end{figure}
-
-\newpage
-\noindent Dibawah ini merupakan deskripsi dari use case yang sedang berjalan:
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item \textit{Admin} melihat daftar siswa.
-\item \textit{Admin} melihat nilai setiap siswa.
-\item \textit{Admin} melihat minat setiap siswa.
-\item \textit{Admin} mencetak hasil keputusan.
-\item Siswa melihat laporan penjurusan yang telah dicetak oleh \textit{admin}
-\end{enumerate}
-
-\subsection{Evaluasi Sistem Saat Ini}
-
-\begin{table}[ht]
-\centering
-\caption{Permasalahan dan Solusinya}
-\begin{tabular}{|>{\raggedright}p{5cm}|p{2.5cm}|>{\raggedright}p{5cm}|}
- \hline
- \multicolumn{1}{|c}{\bfseries Masalah} & \multicolumn{1}{|c|}{\bfseries Aktor} & \multicolumn{1}{c|}{\bfseries Solusi} \\ 
-  \hline
-\begin{enumerate}
-   	\item Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah.
-   	\item Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah.
-   	\item Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah Masalah masalah masalah.
-   \end{enumerate} &
-   \begin{enumerate}
-  	\item Aktor 1
-  	\item Aktor 2
-  \end{enumerate} &
-  \begin{enumerate}
-  \item Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi.
-  \item Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi.
-  \item Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi Solusi solusi solusi.
-  \end{enumerate}
-     \tabularnewline
-  \hline
- \end{tabular}
-\end{table}
-
-\subsection{Model yang Diusulkan}
-
-\subsection{Acitivity Diagram yang Diusulkan}
-
-\subsection{Perancangan Prosedur Sistem}
-
-\subsubsection{Use Case Diagram}
-
-\subsubsection{Activity Diagram}
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item \textit{Activity diagram} satu
-
-\begin{enumerate}[label=\alph*.]
-	\item Item 1.
-	\item Item 2.
+\section{Gambaran Umum}
+Penulis akan meneliti bagaimana cara mengimplementasikan algoritma
+enkripsi citra Hill Cipher termodifikasi, sesuai yang diusulkan Panighray dkk.
+Akan tetapi, penulis tidak menggunakan \textit{involutory key matrix} seperti yang
+digunakan Panighray dkk. dan Acharya dkk.\par
+Di dalam sistem ini, masukan akan berupa citra dan kata kunci yang
+disuplai oleh pengguna. Masukan ini akan diproses dengan tahapan-tahapan sebagai berikut:
+	\begin{enumerate}[label=(\alph*)]
+	\item \label{enkripsi1} Pengguna memberikan masukan citra dan matriks kunci $k\bmod 256$.
+	\item \label{enkripsi2} Sistem memeriksa apakah citra merupakan citra berwarna atau citra keabuan.
+		\begin{enumerate}[label=\arabic*.]
+		\item Jika citra berwarna, matriks citra ditransformasikan menjadi matriks 
+			berdimensi $3\times n$, dengan $n$ bernilai hasil kali panjang dan lebar citra.
+		\item Jika citra keabuan, matriks citra ditransformasikan menjadi matriks 
+			berdimensi $3\times\lceil n\rceil$, dengan $n$ bernilai hasil kali 
+			panjang dan lebar citra dibagi 3.
+		\end{enumerate}
+	\item \label{enkripsi3} Matriks citra hasil transformasi dikenai metode Hill Cipher dengan 
+		matriks kunci $k$ dan modulo 256.
+	\item \label{enkripsi4} Matriks hasil enkripsi dikembalikan ke dimensi asli citranya -- $3\times w\times h$ 
+		untuk citra berwarna dan $w\times h$ untuk citra keabuan.
 	\end{enumerate}
-\item Dua
-\end{enumerate}
-
-\subsubsection{Class Diagram}
-
-\subsubsection{Sequence Diagram}
-
-\subsection{Perancangan Antarmuka (Interface)}
-
+Untuk dekripsi, tahap-tahapnya adalah sebagai berikut:
+	\begin{enumerate}[label=(\alph*)]
+	\item Pengguna memberi masukan citra terenkripsi (\textit{cipher image}) dan matriks kunci $k\bmod 256$.
+	\item Sistem menghitung invers matriks kunci (yang diasumsikan nonsingular).
+	\item Proses selanjutnya sama seperti tahap \ref{enkripsi1} s.d. \ref{enkripsi4} untuk enkripsi,
+		dengan mengganti matriks $k$ dengan invers matriks kunci.
+	\end{enumerate}
 \newpage

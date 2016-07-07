@@ -2,76 +2,82 @@
 \chapter{PENDAHULUAN}
 %-----------------------------------------------------------------------------%
 
-\vspace{4.5pt}
+\vspace{6pt}
 
 \section{Latar Belakang} \label{sec:latar_belakang}
-\blindtext
+Dekade ini, kita telah memasuki era informasi, yaitu era di mana informasi mengalir dengan arus yang sangat kencang dan hampir tak terbendung. Kemajuan teknologi telah memungkinkan kita untuk memanfaatkan arus informasi ini. Aplikasi multimedia terkini ditambah dengan kemampuan jaringan internet sekarang perlahan mengarahkan kita untuk bertukar informasi dengan gambar. Dengan adanya tren baru ini, diperlukan adanya mekanisme pengamanan tertentu agar informasi tidak jatuh ke tangan yang salah.
 
-\blindtext
-\section{Identifikasi Masalah}
-Berdasarkan latar belakang di atas dapat diidentifikasi masalah-masalah sebagai berikut:
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item Masalah 1.
-\item Masalah 2.
-\item Masalah 3.
-\end{enumerate}
+Untuk mengatasi efek negatif tersebut, ilmuwan komputer mengembangkan ilmu kriptografi, yaitu ilmu yang mempelajari prinsip dan metode untuk mengubah tulisan jelas (\textit{clear text}) menjadi tulisan yang tidak bermakna (\textit{cipher text}) dan kemudian dikembalikan lagi ke bentuk aslinya. Seiring dengan perkembangan zaman, kriptografi tidak melulu menyangkut teks, tapi dapat pula diaplikasikan ke jenis informasi lainnya, seperti citra, video, dan suara. Akan tetapi, perkembangan ini tidaklah tanpa biaya. Semakin rumit model informasi yang disandikan, semakin rumit pula algoritma penyandiannya.
+
+Panighray dkk (2008) dalam penelitiannya mengembangkan metode enkripsi citra dengan metode Hill's Cipher yang termodifikasi. Metode ini menggunakan \emph{involutory key matrix}, yaitu matriks yang merupakan invers dirinya sendiri. Algoritma involutory key matrix ini diusulkan oleh Acharya dkk (2008) dalam jurnalnya yang berjudul “\textit{Novel Methods of Generating Self-Invertible Matrix for Hill Cipher Algorithm}”. Metode ini sudah cukup baik untuk menyandikan citra, akan tetapi matriks kuncinya dibuat secara acak. Penulis berusaha mengembangkan metode ini sehingga pengguna dapat menentukan sendiri matriks kuncinya.
+
+Bertolak dari permasalahan di atas, penulis mengusulkan untuk membuat metode enkripsi yang berdasar dari penelitian Panighray dkk. dengan sedikit perubahan, yaitu menggunakan matriks kunci yang ditentukan oleh pengguna sendiri.
+%\lipsum[4-5]
 
 \section{Rumusan Masalah}
+Berdasarkan latar belakang di atas dapat diidentifikasi masalah-masalah sebagai berikut:
+\begin{enumerate}[nolistsep,leftmargin=1cm]
+\item Bagaimanakah algoritma penyandian baru yang didasarkan metode Advanced Hill Cipher?
+\item Bagaimana kehandalan metode yang diusulkan penulis dibandingkan dengan metode Hill Cipher yang asli?
+\item Apakah metode yang diusulkan penulis layak untuk diterapkan untuk penyandian citra? Bagaimana pengujiannya?
+\end{enumerate}
 
 \section{Tujuan Penelitian}
-
-\section{Manfaat Penelitian}
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item Manfaat bagi pribadi.
-\item Manfaat bagi institusi.
-\item Manfaat bagi masyarakan umum.
+\begin{enumerate}[nolistsep,leftmargin=1cm]
+\item Menemukan metode penyandian baru berdasar metode Advanced Hill Cipher usulan Panighray dkk.
+\item Menguji kehandalan metode yang diusulkan penulis.
 \end{enumerate}
 
 \section{Batasan Masalah}
 Dalam penelitian ini, peneliti akan membatasi masalah yang akan diteliti antara lain:
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item Batasan 1.
-\item Batasan 2.
-\item Batasan 3.
+\begin{enumerate}[nolistsep,leftmargin=1cm]
+\item Citra yang dienkripsi berupa citra berwarna tiga kanal (\textit{RGB}) atau citra keabuan (\textit{grayscale}).
+\item Format citra yang diolah adalah PNG, JPG, atau BMP.
 \end{enumerate}
 
+\section{Manfaat Penelitian}
 
-\section{Metode Penelitian}
+
+\section{Metodologi Penelitian}
+\subsection{Studi Literatur}
+Studi literatur dilakukan untuk mendapatkan informasi terkait penelitian yang
+dilakukan. Studi literatur dilakukan dengan cara mempelajari buku referensi, artikel
+dan jurnal yang berkaitan dengan kriptografi dan pemrosesan citra.
+
+\subsection{Percancangan Sistem}
+Pada tahap ini dilakukan perancangan pembuatan sistem berdasarkan teori-teori yang didapatkan 
+dari tahap sebelumnya.
 
 \subsection{Pengumpulan Data}
-Pengumpulan data dilakukan untuk memperoleh informasi yang
-dibutuhkan dan merupakan salah satu hal yang mempengaruhi kualitas data hasil penelitian. Data penelitian sendiri diperoleh:
-\begin{enumerate}[nolistsep,leftmargin=0.5cm]
-\item Observasi \\
-BlablablablblablalbalalBlablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal
-\item Wawancara \\
-Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal vBlablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal
-\item Studi Literatur \\
-Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal Blablablablblablalbalal
-\end{enumerate}
+Pada tahap ini dilakukan pengumpulan data yang digunakan untuk penelitian.
 
-\subsection{Pengembangan Sistem}
+\subsection{Implementasi Sistem}
+Tahap ini merupakan tahap di mana sistem diwujudkan. Sistem dibuat sesuai dengan rancangan 
+pada tahap sebelumnya.
 
-\subsection{Sistematika Penulisan}
-Pada penelitian ini peneliti menyusun berdasarkan sistematika penulisan sebagai berikut: \\
-\noindent \textbf{BAB I \hspace{1cm} PENDAHULUAN}
-\begin{addmargin}[2.35cm]{0em}
-Bab ini berisi tentang latar belakang, identifikasi masalah, tujuan penelitian, manfaat penelitian, batasan masalah, metode penelitian, dan sistematika penulisan.
+\subsection{Pengujian}
+Setelah sistem selesai dibuat, data yang sudah terkumpul diuji menggunakan sistem tersebut
+untuk kemudian diuji kesahihannya dibandingkan dengan teori yang ada.
+
+\section{Sistematika Penulisan}
+\subsection*{BAB I: PENDAHULUAN} %\textbf{BAB I: PENDAHULUAN}
+\begin{addmargin}[0.75cm]{0em}
+Bab ini berisi tentang latar belakang masalah, rumusan masalah, tujuan penelitian, batasan masalah, manfaat penelitian, metodologi penelitian, dan sistematika penulisan.
 \end{addmargin}
-\noindent \textbf{BAB II \hspace{0.8cm} LANDASAN TEORI}
-\begin{addmargin}[2.35cm]{0em}
+\subsection*{BAB II: LANDASAN TEORI}
+\begin{addmargin}[0.75cm]{0em}
 Bab ini berisi tentang teori-teori yang mendukung atau berhubungan denga aplikasi ini.
 \end{addmargin}
-\noindent \textbf{BAB III \hspace{0.7cm} ANALISA DAN PERANCANGAN SISTEM}
-\begin{addmargin}[2.35cm]{0em}
+\subsection*{BAB III: ANALISA DAN PERANCANGAN SISTEM}
+\begin{addmargin}[0.75cm]{0em}
 Bab ini menjelaskan tentang proses menganalisa dan merancang sistem aplikasi ini.
 \end{addmargin}
-\noindent \textbf{BAB IV \hspace{0.7cm} IMPLEMENTASI DAN PENGUJIAN}
-\begin{addmargin}[2.35cm]{0em}
+\subsection*{BAB IV: IMPLEMENTASI DAN PENGUJIAN}
+\begin{addmargin}[0.75cm]{0em}
 Bab ini berisi tentang implementasi dan pengujian sistem aplikasi yang telah dibuat.
 \end{addmargin}
-\noindent \textbf{BAB V \hspace{0.8cm} KESIMPULAN DAN SARAN}
-\begin{addmargin}[2.35cm]{0em}
+\subsection*{BAB V: KESIMPULAN DAN SARAN}
+\begin{addmargin}[0.75cm]{0em}
 Bab ini berisi tentang kesimpulan dan saran untuk mendukung perbaikan sistem aplikasi ini.
 \end{addmargin}
 
