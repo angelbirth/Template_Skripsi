@@ -3,10 +3,38 @@
 %-----------------------------------------------------------------------------%
 
 %
-\vspace{4.5pt}
+\vspace{12pt}
 
 \section{Kesimpulan}
+Secara umum, algoritma Hill Cipher cukup baik untuk digunakan sebagai metode enkripsi citra.
+Karena sifat dasarnya sebagai linear kombinator, Hill Cipher mampu menyebarkan informasi
+(dalam hal ini, intensitas warna) sehingga cukup resisten terhadap \emph{statistical attack}.
+Akan tetapi, karena sifat linearitasnya itu juga, Hill Cipher menjadi lemah terhadap \emph{known-
+plaintext attack}. Akan tetapi kelemahan ini bisa dikurangi dengan menambah panjang kunci; semakin 
+panjang kuncinya, akan semakin sulit melakukan \emph{known-plaintext attack}. Namun demikian, pertambahan
+panjang kunci berimbas pada makin lamanya proses enkripsi (sekaligus dekripsi) dan pembuatan invers 
+matriks kunci.
 
-\subsection{Saran}
+\section{Saran}
+Penelitian ini tidak mencakup aspek transmisi dari citra terenkripsi, sehingga pada prakteknya dapat
+terjadi adanya \emph{transmission error} yang berakibat citra yang diterima tidak sama dengan citra 
+yang ditransmisikan. Selain itu tidak menutup kemungkinan juga bahwa pengguna lupa sebagian atau 
+bahkan seluruh kunci yang berakibat pada citra yang tidak bisa terdekripsi dengan baik (atau malah 
+tidak dapat terdekripsi sama sekali). Oleh karena itu beberapa hal yang menjadi saran untuk penelitian
+selanjutnya:
+\begin{itemize}
+\item Bagaimana cara transmisi \emph{cipherimage} sehingga tidak ada \emph{information loss}.
+\item Bagaimana cara memperbaiki \emph{cipherimage} yang korup sehingga masih dapat didekripsi sebagian.
+\item Bagaimana cara memperbaiki kunci yang dilupakan sebagian sehingga masih ada informasi yang bisa didapat dari proses dekripsi.
+\item Bagaimana cara penyimpanan dan distribusi kunci sehingga hanya orang yang berhak yang dapat memilikinya.
+\end{itemize}
+Selain itu, untuk khalayak umum penulis memberi saran:
+\begin{itemize}
+\item Jangan mengirim informasi sensitif melalui jalur tidak aman. Sekuat apapun algoritma enkripsi tidak
+akan mampu mengkompensasi kerugian yang timbul atas kecerobohan manusia.
+\item Ketika menyangkut informasi sensitif, jangan percaya siapapun.
+\item Pertimbangkan juga untuk menggunakan steganografi yang dikombinasikan dengan kriptografi untuk
+mengurangi ketertarikan pihak ketiga.
+\end{itemize}
 
 \newpage
