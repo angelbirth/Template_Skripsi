@@ -1,30 +1,235 @@
 %-----------------------------------------------------------------------------%
-\chapter{IMPLEMENTASI DAN PENGUJIAN}
+\chapter{HASIL DAN ANALISIS}
 %-----------------------------------------------------------------------------%
 
 %
-\vspace{4.5pt}
+\vspace{12pt}
 
-\section{Implementasi}
+\section{Hasil Penelitian}
+Pada bab ini akan dibahas hasil dari penelitian yang dilakukan beserta analisisnya. 
+Percobaan dilakukan kepada lima gambar beresolusi 24 megapiksel ($6016\times 4000$) dan
+satu gambar beresolusi $256\times 256$ piksel. Dari lima gambar tersebut, dua di 
+antaranya adalah gambar yang sama -- satu gambar berwarna dan satu gambar \textit{grayscale}.
+Penulis menggunakan kata kunci yang sama untuk semua citra yang dienkripsi, yaitu \label{kunci}\texttt{rahasia}.\\
+Penulis menggunakan prosentase perbandingan jumlah piksel yang berbeda dan 
+waktu komputasi sebagai parameter pengujian. Semakin banyak piksel beda, algoritma enkripsi
+dapat dikatakan semakin efektif. Semakin kecil waktu komputasi, algoritma dapat dikatakan semakin efisien.
+\subsection{Pembuatan Matriks Kunci}
+Kata kunci yang digunakan, \texttt{rahasia}, dikenai \textit{padding} spasi  di akhir
+untuk melengkapi jumlah karakter menjadi 9 karakter, diubah menjadi representasi numeriknya 
+berdasarkan kode ASCII, lalu disusun ulang menjadi matriks persegi. Penataan mengikuti urutan
+\textit{column-major order}. 
+\[
+\begin{bmatrix}
+\texttt{r}&\texttt{a}&\texttt{a}\\
+\texttt{a}&\texttt{s}&\_\footnotemark[1]\\
+\texttt{h}&\texttt{i}&\_
+\end{bmatrix}
+\]
+Hasil akhir kunci adalah seperti berikut:
+\begin{equation}\label{eq:matriks_kunci}
+\begin{bmatrix}
+114&97 &97\\
+97 &115&32\\
+104&105&32
+\end{bmatrix}
+\end{equation}
+Determinan matriks \ref{eq:matriks_kunci} adalah $-113967\equiv 209\bmod 256$, yang berarti 
+matriks tersebut \textit{invertible}. Sedangkan invers matriksnya adalah
+\begin{equation}\label{eq:invers_matriks_kunci}
+\begin{bmatrix}
+    64&    89&   253\\
+   224&    88&   177\\
+    65&   198&   101
+\end{bmatrix}
+\end{equation}
+Dapat dibuktikan bahwa matriks \ref{eq:matriks_kunci} dan \ref{eq:invers_matriks_kunci} saling invers:
+\begin{equation}
+\begin{bmatrix}
+	114 & 97  & 97\\
+	97  & 115 & 32\\
+	104 & 105 & 32
+\end{bmatrix}
+\begin{bmatrix}
+    64&    89&   253\\
+   224&    88&   177\\
+    65&   198&   101
+\end{bmatrix}=
+\begin{bmatrix}
+   35329&   37888&   55808\\
+   34048&   25089&   48128\\
+   32256&   24832&   48129
+\end{bmatrix}
+\end{equation}
 
-\subsection{Lingkungan Perangkat Lunak}
+\begin{equation}
+\begin{bmatrix}
+    64&    89&   253\\
+   224&    88&   177\\
+    65&   198&   101
+\end{bmatrix}
+\begin{bmatrix}
+	114 & 97  & 97\\
+	97  & 115 & 32\\
+	104 & 105 & 32
+\end{bmatrix}=
+\begin{bmatrix}
+   42241&   43008 &  17152\\
+   52480&   50433 &  30208\\
+   37120&   39680 &  15873
+\end{bmatrix}
+\end{equation}
 
-\subsection{Spesifikasi Perangkat Keras}
+\begin{equation}
+\begin{bmatrix}
+   35329&   37888&   55808\\
+   34048&   25089&   48128\\
+   32256&   24832&   48129
+\end{bmatrix}\equiv
+\begin{bmatrix}
+   42241&   43008 &  17152\\
+   52480&   50433 &  30208\\
+   37120&   39680 &  15873
+\end{bmatrix}\equiv
+\begin{bmatrix}
+   1&  0& 0\\
+   0&   1&   0\\
+   0&   0&   1
+\end{bmatrix} \bmod 256
+\end{equation}
+Berarti matriks \ref{eq:matriks_kunci} dapat digunakan sebagai matriks kunci untuk enkripsi.
 
-\subsection{Impelementasi Antarmuka}
+\subsection{Enkripsi Citra Berwarna}
+\begin{enumerate}[label=(\alph*)]
+	\item Data pertama adalah foto mahasiswa TI Sanata Dharma angkatan 2012 saat bertamu ke 
+	rumah Bapak Eka Priyatma. Foto ini diambil pada tanggal 
+	21 September 2014 pukul 16.43 WIB, dengan kamera NIKON D3200. Resolusinya $6016\times 4000$ 
+	piksel, dengan kedalaman warna 24-bit per piksel (8-bit per komponen warna).\\
+	Enkripsi gambar \ref{gbr:plain1} membutuhkan waktu 6,99 detik dengan perbandingan jumlah piksel
+	beda 99,615\%\\	
+	\begin{figure}\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/1comp}
+		\caption{Foto mahasiswa TI Sanata Dharma angkatan 2012 saat bertamu ke rumah 
+		u	Bapak Drs. Johanes Eka Priyatma, M.Sc., Ph.D.;}
+		\label{gbr:plain1}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/1enc}
+		\caption{Hasil enkripsi gambar \ref{gbr:plain1}}
+		\label{gbr:enc1}
+	\end{subfigure}
+	\caption{Data 1} \label{gbr:data1}
+	\end{figure}
+	Dari gambar \ref{gbr:enc1} terlihat bahwa sebagian besar foto telah tersebar warnanya dengan 
+	rata, hanya sebagian kecil area yang memiliki warna seragam (merah). Hal ini disebabkan adanya
+	daerah pada gambar yang warnanya sama persis, sehingga hasil enkripsi pun sama persis.
+	Hal ini dapat diatasi dengan menyebarkan warna sehingga tidak ada area yang cukup besar dengan 
+	warna yang sama.\\
+	
+	\item Data kedua adalah foto pemandangan di pantai Sadranan, Kabupaten Gunungkidul. Foto
+	diambil tanggal 27 Mei 2014 pukul 6.02 WIB dengan kamera NIKON D3200. Resolusi $6016\times 4000$
+	piksel, 24-bit warna per piksel.
+	\begin{figure}\centering
+		\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/2comp}
+		\caption{}
+		\label{gbr:plain2}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/2enc}
+		\caption{Hasil enkripsi gambar \ref{gbr:plain2}}
+		\label{gbr:enc2}
+	\end{subfigure}
+	\caption{Data 2}
+	\label{gbr:data2}
+	\end{figure}
+	
+	\item Citra ketiga
+	\begin{figure}\centering
+		\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/3comp}
+		\caption{}
+		\label{gbr:plain3}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/3enc}
+		\caption{Hasil enkripsi gambar \ref{gbr:plain3}}
+		\label{gbr:enc3}
+	\end{subfigure}
+	\caption{Data 3}
+	\label{gbr:data3}
+	\end{figure}
+	
+	\item Citra keempat
+	\begin{figure}\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/4comp}
+		\caption{}
+		\label{gbr:plain4}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/4enc}
+		\caption{Hasil enkripsi gambar \ref{gbr:plain4}}
+		\label{gbr:enc4}
+	\end{subfigure}
+	\caption{Data 4}
+	\label{gbr:data4}
+	\end{figure}
+	
+	\item Citra kelima
+	\begin{figure}\centering
+		\begin{subfigure}{\textwidth}
+			\includegraphics[width=256px]{data/5}
+			\caption{}
+			\label{gbr:plain5}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\includegraphics[width=256px]{data/5enc}
+			\caption{Hasil enkripsi gambar \ref{gbr:plain5}}
+			\label{gbr:enc5}
+		\end{subfigure}
+		\caption{Data 5}
+		\label{gbr:data5}
+	\end{figure}
+\end{enumerate}
 
-\subsubsection{Impelementasi Halaman Utama}
+\begin{table} \centering
+\caption{Hasil uji citra}
+	\begin{tabular}{|r|c|c|c||} \hline
+	\textbf{No Gambar} &{\bf Resolusi}    &\textbf{Waktu\footnotemark[2]}&\textbf{Perbedaan}\\ \hline
+	\ref{gbr:data1}    &$6016\times 4000$ &6.99 detik    &99.615\%          \\ \hline
+	\ref{gbr:data2}    &$6016\times 4000$ &7.50 detik    &99.616\%          \\ \hline
+	\ref{gbr:data3}    &$6016\times 4000$ &7.30 detik    &99.627\%          \\ \hline
+	\ref{gbr:data4}    &$6016\times 4000$ &7.56 detik    &99.599\%          \\ \hline
+	\ref{gbr:data5}    &$256\times 256$   &0.0213 detik  &99.633\%          \\ \hline
+	\end{tabular}
+\end{table}
 
-\subsubsection{Implementasi Menu File}
+\subsection{Enkripsi Citra Keabuan}
+Citra yang dipakai adalah gambar \ref{gbr:plain3} yang diubah menjadi \textit{grayscale}.
+ \textit{Property} gambar \ref{gbr:plain6} sama persis dengan gambar \ref{gbr:plain3}, kecuali
+ kedalaman warnanya; gambar \ref{gbr:plain6} memiliki kedalaman warna 8-bit per piksel (256 warna)
+\begin{figure}\centering
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/6comp}
+		\caption{}
+		\label{gbr:plain6}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\includegraphics[width=\textwidth]{data/6enc}
+		\caption{Hasil enkripsi gambar \ref{gbr:plain6}}
+		\label{gbr:enc6}
+	\end{subfigure}
+	\caption{Data 6}
+	\label{gbr:data6}
+\end{figure}
 
-\subsubsection{Implementasi Menu}
+\footnotetext[1]{Karakter \texttt{\_} dipakai sebagai pengganti spasi supaya lebih terlihat}
+\footnotetext[2]{Waktu proses diukur ketika \textit{Octave engine} sudah "panas" -- sudah 
+digunakan lebih dari sekali -- sehingga komputasi sudah optimal. Berdasarkan percobaan,
+\textit{Octave engine} sudah panas setelah 3 kali memproses data. Waktu yang diambil adalah
+waktu proses yang ke-4, yang kebetulan selalu yang terbaik dari antara proses-proses sebelumnya.}
 
-\subsection{Pengguna Program}
-
-\section{Pengujian}
-
-\subsection{Pengujian Blackbox}
-
-\subsection{Pengujian Whitebox}
 
 \newpage

@@ -18,6 +18,55 @@ termasuk otentikasi -- proses meyakinkan penerima pesan bahwa pesan benar-benar
 berasal dari sumber yang asli (bukan dari pengirim lain yang menyamar) -- dan
 integritas -- bahwa pesan yang sampai ke penerima adalah benar pesan yang
 dikirim oleh pengirim tanpa mengalami perubahan sedikitpun.
+
+\subsection{Hill's Cipher}
+Pada tahun 1929, seorang matematikawan bernama Lester Hill menciptakan sebuah 
+\textit{cryptosystem} polialfabetik. Ide dasar dari Hill's Cipher ini adalah mengambil 
+$m$ kombinasi linear dari $m$ karakter alfabet sebagai sebuah elemen dari suatu 
+\emph{plaintext}, menghasilkan $m$ karakter alfabet sebagai sebuah elemen dari 
+f\emph{ciphertext}-nya.
+
+\subsection{Kriptanalisis}
+Kriptanalisis (dari bahasa Inggris \emph{cryptanalysis -- crypto-analysis}) adalah
+bagian dari kriptografi yang mempelajari kelemahan suatu algoritma \emph{cryptosystem}
+dengan tujuan mendapatkan pesan asli dari suatu \emph{ciphertext} tanpa mengetahui 
+kunci yang digunakan untuk enkripsinya. Oleh karena itu, kriptanalisis sering juga 
+serangan kriptografi.\par
+Berdasarkan model serangannya, beberapa serangan umum adalah:
+\begin{enumerate}[label=\alph*.]
+	\item \emph{Ciphertext-only attack} (\textbf{COA})\\ 
+	Penyerang hanya memiliki \emph{ciphertext} dan tidak memiliki informasi tambahan apapun.
+	\item \emph{Known-plaintext attack} (\textbf{KPA})\\
+	Penyerang mengetahui sebagian atau seluruh \emph{plaintext} dari \emph{ciphertext} yang dimiliki.
+	\item \emph{Chosen-plaintext attack} (\textbf{CPA})\\
+	Penyerang bisa mendapatkan \emph{ciphertext} dari \emph{plaintext} yang dimiliki.
+\end{enumerate}
+Untuk penelitian ini, penulis akan membahas COA dan KPA saja, karena metode CPA bisa dianggap tidak \textit{feasible}.\\
+
+\subsubsection{Analisis Statistik}
+Pada \emph{ciphertext-only attack}, penyerang hanya memiliki \emph{ciphertext} tanpa ada informasi
+lainnya. Oleh karena itu, petunjuk untuk membongkar pesan hanya bisa didapat dari \emph{ciphertext}
+itu sendiri. Salah satu cara untuk mendapatkan petunjuk adalah dengan melakukan  analisis statistik.
+Pada kriptografi citra, ada beberapa properti yang bisa dijadikan aspek analisis statistik:
+\begin{enumerate}[label=\alph*.]
+	\item Histogram\\
+Histogram menyatakan persebaran warna dari sebuah citra. Algoritma enkripsi yang baik harus dapat
+menghasilkan histogram yang tersebar merata, sekaligus juga berbeda jauh dari histogram \emph{plainimage}-nya.
+	\item Koefisien korelasi\\
+Koefisien korelasi menyatakan hubungan keterkaitan antara dua variabel. Misalkan kedua variabel
+masing-masing adalah \emph{plainimage} dan \emph{cipherimage}; nilai koefisien korelasi yang
+mendekati 1 menunjukkan bahwa kedua variabel saling terkait, yang berarti proses enkripsi dapat
+dikatakan gagal. Koefisien korelasi mendekati -1 berarti \emph{plainimage} mirip dengan negatif dari
+\emph{cipherimage}. Algoritma enkripsi yang baik harus dapat menghasilkan nilai koefisien korelasi
+yang mendekati 0.
+	\item Entropi informasi\\
+Secara umum, entropi menunjukkan ukuran ketidakpastian dari suatu informasi. Makin tinggi entropi
+berarti makin tidak pasti suatu informasi. Dalam hubungannya dengan enkripsi, entropi yang tinggi
+berarti \emph{cipherimage} tidak dapat diprediksi, sehingga semakin tinggi nilai entropi semakin
+baik sebuah algoritma enkripsi.
+\end{enumerate}
+
+
 \section{Matriks}
 Matriks merupakan struktur data yang sangat umum dan natural dalam komputasi,
 terdiri atas kumpulan angka yang membentuk persegi panjang. Matriks memiliki
@@ -43,7 +92,7 @@ matriks yang berdimensi $1\times n$ atau $n\times 1$.
 
 \subsection{Operasi Matriks}
 Layaknya angka, matriks pun memiliki beberapa operasi aritmatika. Beberapa
-operasi matriks sangat trivial, sisanya memerlukan penge-tahuan khusus. Dalam
+operasi matriks sangat trivial, sisanya memerlukan pengetahuan khusus. Dalam
 penelitian ini, penulis akan menggunakan beberapa operasi matriks dasar, yaitu:
 
 \begin{enumerate}[label=\alph*.]
@@ -56,9 +105,9 @@ adalah kedua matriks harus memiliki dimensi yang sama.
 [a_{ij}] \pm [b_{ij}] = [a_{ij}\pm b_{ij}] \text{, untuk setiap }  i \text{ dan } j
 \end{equation}
 
-\item Perkalian skalar\\Perkalian skalar juga merupakan operasi trivial. Jika k adalah sebuah
-konstanta, maka kA adalah perkalian skalar matriks A dengan k,
-didefinisikan sebagai matriks dengan elemen-elemen a ij yang
+\item Perkalian skalar\\Perkalian skalar juga merupakan operasi trivial. Jika $k$ adalah sebuah
+konstanta, maka $kA$ adalah perkalian skalar matriks $A$ dengan $k$,
+didefinisikan sebagai matriks dengan elemen-elemen $a_{ij}$ yang
 dikalikan dengan k.
 \begin{equation}
 k[a_{ij}] = [ka_{ij}] \text{, untuk setiap } i \text{ dan }j
@@ -70,7 +119,7 @@ perkalian matrix $C = A \times B$ didefinisikan sebagai
 	c_{ij}=\sum_{k=1}^m{a_{ik}b_{kj}}\text{ , } \left(
 	\begin{array}{l}
 		i=1, 2, 3, \dotsc, n\\
-		j=1, 2, 3, \dotsc, m
+		j=1, 2, 3, \dotsc, r
 	\end{array}\right)
 \end{equation} 
 Matriks $C$ hasil perkalian akan berdimensi $n\times r$.
@@ -104,7 +153,7 @@ mod m. Secara umum, operasi modulus m didefinisikan secara rekursif sebagai
 berikut:
 \begin{equation}
 c \bmod{m}= \begin{cases}
-	(m-c)\bmod{m}	&\text{jika }c<0\\
+	(m+c)\bmod{m}	&\text{jika }c<0\\
 	c				&\text{jika }0\leq c<m\\
 	(c-m)\bmod{m}	&\text{jika }c\geq m
 \end{cases}

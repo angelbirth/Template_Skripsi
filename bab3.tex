@@ -1,37 +1,58 @@
 %-----------------------------------------------------------------------------%
-\chapter{ANALISA DAN PERANCANGAN SISTEM}
+\chapter{METODOLOGI PENELITIAN}
 %-----------------------------------------------------------------------------%
 
 %
 \vspace{12pt}
-
 \section{Gambaran Umum}
-Penulis akan meneliti bagaimana cara mengimplementasikan algoritma
-enkripsi citra Hill Cipher termodifikasi, sesuai yang diusulkan Panighray dkk.
-Akan tetapi, penulis tidak menggunakan \textit{involutory key matrix} seperti yang
-digunakan Panighray dkk. dan Acharya dkk.\par
-Di dalam sistem ini, masukan akan berupa citra dan kata kunci yang
-disuplai oleh pengguna. Masukan ini akan diproses dengan tahapan-tahapan sebagai berikut:
-	\begin{enumerate}[label=(\alph*)]
-	\item \label{enkripsi1} Pengguna memberikan masukan citra dan matriks kunci $k\bmod 256$.
-	\item \label{enkripsi2} Sistem memeriksa apakah citra merupakan citra berwarna atau citra keabuan.
-		\begin{enumerate}[label=\arabic*.]
-		\item Jika citra berwarna, matriks citra ditransformasikan menjadi matriks 
-			berdimensi $3\times n$, dengan $n$ bernilai hasil kali panjang dan lebar citra.
-		\item Jika citra keabuan, matriks citra ditransformasikan menjadi matriks 
-			berdimensi $3\times\lceil n\rceil$, dengan $n$ bernilai hasil kali 
-			panjang dan lebar citra dibagi 3.
-		\end{enumerate}
-	\item \label{enkripsi3} Matriks citra hasil transformasi dikenai metode Hill Cipher dengan 
-		matriks kunci $k$ dan modulo 256.
-	\item \label{enkripsi4} Matriks hasil enkripsi dikembalikan ke dimensi asli citranya -- $3\times w\times h$ 
-		untuk citra berwarna dan $w\times h$ untuk citra keabuan.
-	\end{enumerate}
-Untuk dekripsi, tahap-tahapnya adalah sebagai berikut:
-	\begin{enumerate}[label=(\alph*)]
-	\item Pengguna memberi masukan citra terenkripsi (\textit{cipher image}) dan matriks kunci $k\bmod 256$.
-	\item Sistem menghitung invers matriks kunci (yang diasumsikan nonsingular).
-	\item Proses selanjutnya sama seperti tahap \ref{enkripsi1} s.d. \ref{enkripsi4} untuk enkripsi,
-		dengan mengganti matriks $k$ dengan invers matriks kunci.
-	\end{enumerate}
-\newpage
+Penulis akan meneliti implementasi Hill Cipher untuk penyandian citra. Di dalam 
+sistem ini, data masukan berupa citra dan matriks kunci yang diberikan pengguna.
+Data keluaran berupa citra terenkripsi (\emph{cipherimage}). Pada \emph{cipherimage}
+tersebut akan dikenai analisis statistik untuk mengevaluasi seberapa kuat algoritma
+Hill Cipher untuk enkripsi citra.
+\section{Deskripsi Data}
+Data yang penulis gunakan adalah \textit{file} citra yang didapatkan dari kamera
+digital. Akan tetapi secara umum batasannya adalah citra keabuan atau berwarna 
+tiga kanal (RGB); batasan teknisnya tergantung pada alat (\textit{software}) 
+apa yang digunakan.
+Dalam penelitian ini penulis menggunakan 5 citra berwarna dan 1 citra keabuan.
+Dari kelima citra berwarna, 4 di antaranya diambil dari kamera digital sedangkan 1 citra sisanya
+didapat dari internet.
+
+\section{Deskripsi Alat}
+Untuk penelitian ini, penulis menggunakan komputer pribadi dengan spesifikasi sebagai berikut:
+\begin{itemize}
+\item Prosesor AMD A4-3330MX
+\item RAM 4GB
+\item Kapasitas penyimpanan 500GiB
+\end{itemize}
+Sedangkan perangkat lunak yang penulis gunakan adalah:
+\begin{itemize}
+\item Sistem operasi Linux Ubuntu 14.04.5
+\item GNU Octave 4.0.2
+\item {\LaTeX} dengan paket texlive untuk penulisan dokumen
+\end{itemize}
+
+\section{Desain Penelitian}
+Dalam penelitian ini, penulis membagi penelitian menjadi beberapa modul utama:
+\begin{itemize}
+\item Modul \emph{key generation}\\
+Modul ini bertugas untuk membuat matriks kunci dari masukan pengguna. Masukan pengguna berupa deretan
+karakter dengan panjang maksimal 9 karakter. Matriks kunci berdimensi $3\times{3}$ dan diurutkan
+berdasarkan \emph{column-major order}.
+\item Modul \emph{inverse key generation}\\
+Modul ini bertugas untuk membuat invers dari matriks kunci untuk proses dekripsi citra.
+\item Modul enkripsi-dekripsi\\
+Modul ini bertugas untuk mengubah \emph{plainimage} menjadi \emph{cipherimage} dan sebaliknya.
+\end{itemize}
+
+\section{Desain Pengujian}
+Penulis mengambil beberapa aspek dari proses enkripsi-dekripsi sistem sebagai parameter pengujian.
+Aspek-aspek tersebut dapat digunakan sebagai tolok ukur kekuatan algoritma enkripsi Hill Cipher. Tahap pengujian juga terbagi menjadi beberapa modul. Setiap aspek ditangani oleh satu modul.
+\begin{itemize}
+\item Waktu tempuh proses (\emph{running time})
+\item Jumlah piksel beda
+\item Histogram
+\item Koefisien korelasi
+\item Entropi informasi
+\end{itemize}
